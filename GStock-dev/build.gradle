@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group 'com.github.luis10barbo'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:24.0.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation group: 'org.swinglabs.swingx', name: 'swingx-all', version: '1.6.4'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.43.2.2'}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes 'Main-Class': 'estoqueswing.Main'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
+test {
+    useJUnitPlatform()
+}
